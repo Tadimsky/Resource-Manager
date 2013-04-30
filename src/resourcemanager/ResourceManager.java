@@ -61,7 +61,7 @@ public class ResourceManager {
      * Adds a Resource Loader to the Resource Manager and registers
      * the types of files that the loader can handle.
      * 
-     * @param loader
+     * @param loader The loader to register with the Resource Manager
      */
     public void registerResourceLoader (ResourceLoader loader) {
         for (String ext : loader.getSupportedExtensions()) {
@@ -96,8 +96,8 @@ public class ResourceManager {
      * 
      * @param filename The file name of the file to load.
      * @return Whether it was able to queue the file or not.
-     * @throws FileNotSupportedException
-     * @throws FileNotFoundException
+     * @throws FileNotSupportedException If the file is not supported by the Manager.
+     * @throws FileNotFoundException If the file cannot be found.
      */
     public boolean queueFile (String filename) throws FileNotSupportedException,
                                               FileNotFoundException {
@@ -111,7 +111,7 @@ public class ResourceManager {
      * 
      * @param filename The file name of the file to load.
      * @return Whether it was able to queue the file or not.
-     * @throws FileNotSupportedException
+     * @throws FileNotSupportedException If the file is not supported by the Manager
      */
     public boolean queueFile (URL filename) throws FileNotSupportedException {
         if (filename == null) {
@@ -138,7 +138,7 @@ public class ResourceManager {
     /**
      * Starts loading the resources that have been queued.
      */
-    public void load () {             
+    public void load () {
         if (!isLoading()) {
             myLoadThread = new Thread(new Runnable() {
                 @Override
@@ -158,7 +158,7 @@ public class ResourceManager {
             while (!myLoadQueue.isEmpty()) {
                 URL nextFile = myLoadQueue.poll();
                 loadFile(nextFile);
-            }            
+            }
         }
     }
 
@@ -212,7 +212,7 @@ public class ResourceManager {
             return null;
         }
 
-        Object loadedFile = myResourceStorage.get(file);        
+        Object loadedFile = myResourceStorage.get(file);
         if (resourceType.isAssignableFrom(loadedFile.getClass())) {
             return resourceType.cast(loadedFile);
         }
@@ -234,12 +234,13 @@ public class ResourceManager {
     private URL getFileName (String filename) throws FileNotFoundException {
         URL f = getClass().getResource(myResourceBase + filename);
         if (f == null) {
-            File file = new File(filename);
-            try {
-                return new URL(file.getPath());
+
+            f = getClass().getResource(filename);
+            if (f != null) {
+                return f;
             }
-            catch (MalformedURLException e) {
-                file = new File(myResourceBase + filename);
+            else {
+                File file = new File(filename);
                 try {
                     return new URL(file.getPath());
                 }

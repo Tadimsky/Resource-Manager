@@ -44,4 +44,5 @@ public abstract class ResourceLoader {
      */
     public void registerExtension (String ext) {
         mySupportedExtensions.add(ext);
-    }}
+    }
+}

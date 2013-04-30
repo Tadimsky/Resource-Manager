@@ -43,7 +43,7 @@ public class ImageLoader extends ResourceLoader {
     // From: http://stackoverflow.com/questions/196890/java2d-performance-issues
     private BufferedImage toCompatibleImage (BufferedImage image) {
         // obtain the current system graphical settings
-        GraphicsConfiguration gfx_config =
+        GraphicsConfiguration gfxconfig =
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
                         .getDefaultConfiguration();
 
@@ -51,11 +51,11 @@ public class ImageLoader extends ResourceLoader {
          * if image is already compatible and optimized for current system
          * settings, simply return it
          */
-        if (image.getColorModel().equals(gfx_config.getColorModel()))
+        if (image.getColorModel().equals(gfxconfig.getColorModel()))
             return image;
         // image is not optimized, so create a new image that is
         BufferedImage new_image =
-                gfx_config.createCompatibleImage(image.getWidth(), image.getHeight(),
+                gfxconfig.createCompatibleImage(image.getWidth(), image.getHeight(),
                                                  image.getTransparency());
 
         // get the graphics context of the new image to draw the old image on
