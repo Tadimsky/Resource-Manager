@@ -33,6 +33,8 @@ This would then load the queued files into the ResourceManager so that access wi
 Whether you queue a file or not, you will still call:
     ResourceManager.getInstance().<BufferedImage> getFile(fileName, BufferedImage.class);
 
+## About
+
 This method uses generics in order to return a value of the correct type. Unfortunately you have to specify the class type that you are returning as well as Java is not intelligent enough to do checks with just a generic.
 
 I believe this code is a good example of what I have learnt because it uses advanced principles and topics such singleton pattern, generics and threads. It also is completely closed and modular in that a developer will never need to open this file again. All they do is write more advanced Resource Loaders if they so desire.
