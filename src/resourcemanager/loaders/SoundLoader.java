@@ -5,10 +5,11 @@ import java.applet.AudioClip;
 import java.net.URL;
 import resourcemanager.ResourceLoader;
 
+
 public class SoundLoader extends ResourceLoader {
-    
-    public SoundLoader() {
-        super();        
+
+    public SoundLoader () {
+        super();
         this.registerExtension("wav");
         this.registerExtension("aiff");
         this.registerExtension("au");
@@ -17,7 +18,7 @@ public class SoundLoader extends ResourceLoader {
     }
 
     @Override
-    public Class<?> getFileType () {        
+    public Class<?> getFileType () {
         return AudioClip.class;
     }
 
