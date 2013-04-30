@@ -16,22 +16,22 @@ The ResourceManager supports file names that are relative to the entire Java app
 # Usage
 The way that a developer would use the ResourceManager is to first register the loaders that the ResourceManager can deal with and possible set a default base location.
 
-	ResourceManager.getInstance().registerResourceLoader(new ImageLoader());
+    ResourceManager.getInstance().registerResourceLoader(new ImageLoader());
     ResourceManager.getInstance().registerResourceLoader(new SoundLoader());
     ResourceManager.getInstance().setResourceBase(DEFAULT_RESOURCE_LOCATION);
 
 This lets the Resource Manager load Images and Sounds and specifies the default location to be the provided constant value.
 
 Then, the developer could either queue a file for loading later as such:
-	ResourceManager.getInstance().queueFile(filename);
+    ResourceManager.getInstance().queueFile(filename);
 
 And then call 
-	ResourceManager.getInstance().load();	
+    ResourceManager.getInstance().load();	
 
 This would then load the queued files into the ResourceManager so that access will be faster.
 
 Whether you queue a file or not, you will still call:
-	ResourceManager.getInstance().<BufferedImage> getFile(fileName, BufferedImage.class);
+    ResourceManager.getInstance().<BufferedImage> getFile(fileName, BufferedImage.class);
 
 This method uses generics in order to return a value of the correct type. Unfortunately you have to specify the class type that you are returning as well as Java is not intelligent enough to do checks with just a generic.
 
